@@ -6,11 +6,6 @@ on:
       - main
       - develop
 
-env:
-  PYTHON_VERSION: "3.13"
-  POETRY_VERSION: "2.2.1"
-
-
 jobs:
   lint:
     name: lint
@@ -51,9 +46,9 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: lacrei
-          POSTGRES_USER: lacrei
-          POSTGRES_PASSWORD: lacrei
+          POSTGRES_DB: ${POSTGRES_DB}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         
         ports:
           - 5432:5432
@@ -115,7 +110,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secerts.GHCR_TOKEN }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Image name and tags
         id: meta
