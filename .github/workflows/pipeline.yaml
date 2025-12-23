@@ -120,8 +120,10 @@ jobs:
       - name: Image name and tags
         id: meta
         run: |
-          echo "IMAGE=ghcr.io/${{ github.repository }}/desafio-lacrei-api" >> $GITHUB_OUTPUT
+          REPO_LC="$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
+          echo "IMAGE=ghcr.io/${REPO_LC}/desafio-lacrei-api" >> $GITHUB_OUTPUT
           echo "TAG=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+
 
       - name: Build $ Push
         uses: docker/build-push-action@v6
