@@ -9,7 +9,7 @@ from core.models import Professional
 class ConsultationsAPITests(AuthenticatedAPITestCase):
     def setUp(self):
         self.authenticate()
-        self._url = reverse('consultation')
+        self._url = reverse("consultation")
         self.prof = Professional.objects.create(
             social_name="João",
             profession="Clínico Geral",
@@ -28,43 +28,39 @@ class ConsultationsAPITests(AuthenticatedAPITestCase):
             "notes": "Primeira consulta",
         }
         return super().setUp()
-    
+
     def test_list_consultations(self):
         response = self.client.get(self._url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    
+
     def test_create_retrieve_update_destroy_consultations(self):
 
-        #Create
-        response_create = self.client.post(
-            self._url,
-            data=self.payload,
-            format='json'
-        )
+        # Create
+        response_create = self.client.post(self._url, data=self.payload, format="json")
         self.assertEqual(response_create.status_code, status.HTTP_201_CREATED)
         data = response_create.data
 
-        #Retrieve
-        response_retrive = self.client.get(f'{self._url}{data['id']}/')
+        # Retrieve
+        response_retrive = self.client.get(f"{self._url}{data['id']}/")
         self.assertEqual(response_retrive.status_code, status.HTTP_200_OK)
 
-        #Update
+        # Update
         response_update = self.client.patch(
-            f'{self._url}{data['id']}/',
+            f"{self._url}{data['id']}/",
             data={
                 "client_name": "Paciente Y",
                 "notes": "Editado Primeira consulta",
             },
-            format='json'
+            format="json",
         )
         self.assertEqual(response_update.status_code, status.HTTP_200_OK)
 
-        #Destroy
-        response_destroy = self.client.delete(f'{self._url}{data['id']}/')
+        # Destroy
+        response_destroy = self.client.delete(f"{self._url}{data['id']}/")
         self.assertEqual(response_destroy.status_code, status.HTTP_204_NO_CONTENT)
-        
+
     def test_list_consultations_for_professional(self):
         response = self.client.get(
-            f'{self._url}?professional_id={self.prof.id}',
+            f"{self._url}?professional_id={self.prof.id}",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
