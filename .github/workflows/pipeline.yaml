@@ -49,14 +49,14 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:16
         env:
           POSTGRES_DB: lacrei
           POSTGRES_USER: lacrei
-          POSTGRES_PASSOWRD: lacrei
+          POSTGRES_PASSWORD: lacrei
         
         ports:
-          - 54321:5432
+          - 5432:5432
 
         options: >-
           --health-cmd="pg_isready -U lacrei -d lacrei"
@@ -66,7 +66,7 @@ jobs:
     env:
       SECRET_KEY: test-secret-key
       DEBUG: "False"
-      DATABASE_URL: postgresql://lacrei:lacrei@localhost:54321/lacrei
+      DATABASE_URL: postgresql://lacrei:lacrei@localhost:5432/lacrei
 
     steps:
       - uses: actions/checkout@v4
