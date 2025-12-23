@@ -10,7 +10,6 @@ env:
   PYTHON_VERSION: "3.13"
   POETRY_VERSION: "2.2.1"
 
-
 jobs:
   lint:
     name: lint
@@ -39,7 +38,7 @@ jobs:
 
       - name: Ruff
         run: poetry run ruff check .
-      
+
       - name: Black (checks)
         run: poetry run black --check .
   tests:
@@ -54,7 +53,7 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-        
+
         ports:
           - 5432:5432
 
@@ -123,7 +122,6 @@ jobs:
           REPO_LC="$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
           echo "IMAGE=ghcr.io/${REPO_LC}/desafio-lacrei-api" >> $GITHUB_OUTPUT
           echo "TAG=${GITHUB_SHA}" >> $GITHUB_OUTPUT
-
 
       - name: Build $ Push
         uses: docker/build-push-action@v6
