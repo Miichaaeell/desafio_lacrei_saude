@@ -138,6 +138,7 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.IMAGE }}:${{ steps.meta.outputs.TAG }}
             ${{ steps.meta.outputs.IMAGE }}:latest
+            
   deploy_staging:
     name: Deploy (Staging)
     runs-on: ubuntu-latest
