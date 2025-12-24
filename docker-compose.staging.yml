@@ -3,6 +3,8 @@ services:
     image: ghcr.io/miichaaeell/desafio_lacrei_saude/desafio-lacrei-api:latest
     ports:
       - "8010:8000"
+    env_file:
+    - .env.staging
 
 volumes:
   postgres_data:
