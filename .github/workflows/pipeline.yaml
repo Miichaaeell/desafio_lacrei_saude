@@ -138,3 +138,67 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.IMAGE }}:${{ steps.meta.outputs.TAG }}
             ${{ steps.meta.outputs.IMAGE }}:latest
+  deploy_staging:
+    name: Deploy (Staging)
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Deploy Staging via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/desafio-lacrei-api/desafio_lacrei_saude
+
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            docker compose \
+              --env-file .env.staging \
+              -f docker-compose.yml \
+              -f docker-compose.staging.yml \
+              pull
+
+            docker compose \
+              --env-file .env.staging \
+              -f docker-compose.yml \
+              -f docker-compose.staging.yml \
+              up -d
+
+            docker image prune -f
+  deploy_production:
+    name: Deploy (Production)
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy Production via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/desafio-lacrei-api/desafio_lacrei_saude
+
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            docker compose \
+              --env-file .env.prod \
+              -f docker-compose.yml \
+              -f docker-compose.prod.yml \
+              pull
+
+            docker compose \
+              --env-file .env.prod \
+              -f docker-compose.yml \
+              -f docker-compose.prod.yml \
+              up -d
+
+            docker image prune -f
