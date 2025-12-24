@@ -3,6 +3,11 @@ services:
     image: ghcr.io/miichaaeell/desafio_lacrei_saude/desafio-lacrei-api:latest
     ports:
       - "8020:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
 
 volumes:
   postgres_data:
