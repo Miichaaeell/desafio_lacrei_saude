@@ -1,0 +1,9 @@
+services:
+  api:
+    image: ghcr.io/<owner>/<repo>/desafio-lacrei-api:latest
+    ports:
+      - "8010:8000"
+
+volumes:
+  postgres_data:
+    name: desafio_lacrei_postgres_staging
