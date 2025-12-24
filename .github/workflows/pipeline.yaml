@@ -155,7 +155,7 @@ jobs:
           script: |
             set -e
             cd /opt/desafio-lacrei-api/desafio_lacrei_saude
-            git pull origin develop
+            git checkout develop && git pull origin develop
 
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
@@ -188,7 +188,7 @@ jobs:
           script: |
             set -e
             cd /opt/desafio-lacrei-api/desafio_lacrei_saude
-            git pull origin main
+            git checkout main && git pull origin main
 
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
