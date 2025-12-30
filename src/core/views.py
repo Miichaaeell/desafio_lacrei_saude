@@ -6,7 +6,6 @@ from .serializers import ConsultationSerializer, ProfessionalSerializer
 
 # Views for constultations
 class ConsultationListCreateAPIView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ConsultationSerializer
 
     def get_queryset(self):
@@ -20,7 +19,6 @@ class ConsultationListCreateAPIView(ListCreateAPIView):
 
 
 class ConsultationRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Consultation.objects.all()
     serializer_class = ConsultationSerializer
 
@@ -29,12 +27,10 @@ class ConsultationRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class ProfessionalListCreateAPIView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Professional.objects.all()
     serializer_class = ProfessionalSerializer
 
 
 class ProfessionalRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Professional.objects.all()
     serializer_class = ProfessionalSerializer

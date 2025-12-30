@@ -5,3 +5,5 @@ migrations
 __pycache__
 
 AGENTS.md
+
+docker-compose.develop.yml

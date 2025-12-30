@@ -126,15 +126,16 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
+    host.strip() for host in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",") if host.strip()
 ]
 
 CORS_ALLOW_CREDENTIALS = False
 CORS_ALLOW_HEADERS = [
+    "accept",
     "authorization",
     "content-type",
 ]
-CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE",]
 
 LOGGING = {
     "version": 1,
