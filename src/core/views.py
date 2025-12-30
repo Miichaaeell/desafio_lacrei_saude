@@ -1,5 +1,4 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
 from .models import Consultation, Professional
 from .serializers import ConsultationSerializer, ProfessionalSerializer
 
